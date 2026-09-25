@@ -5,7 +5,15 @@ from google import genai
 from google.genai import types
 
 load_dotenv()
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+import streamlit as st
+
+def get_api_key():
+    try:
+        return st.secrets["GEMINI_API_KEY"]
+    except Exception:
+        return os.getenv("GEMINI_API_KEY")
+
+client = genai.Client(api_key=get_api_key())
 
 MEMORY_PATH = "data/memory.json"
 
