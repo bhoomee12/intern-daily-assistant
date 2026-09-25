@@ -1,0 +1,12 @@
+[
+  {"id": 1, "from": "manager@company.com", "subject": "Need the API report by EOD", "body": "Can you send me the API integration report by end of day? It's needed for tomorrow's client call."},
+  {"id": 2, "from": "hr@company.com", "subject": "Welcome to the team!", "body": "Just a note to say welcome aboard. No action needed."},
+  {"id": 3, "from": "mentor@company.com", "subject": "Quick sync?", "body": "Are you free for a quick sync this week to check on your progress?"},
+  {"id": 4, "from": "it-support@company.com", "subject": "Laptop request submitted", "body": "Your laptop request has been submitted and is pending manager approval."},
+  {"id": 5, "from": "colleague@company.com", "subject": "Can you review my PR?", "body": "Hey, whenever you get a chance, could you review my pull request for the login module?"},
+  {"id": 6, "from": "manager@company.com", "subject": "Status update needed", "body": "Please send me a quick status update on the dashboard task before EOD."},
+  {"id": 7, "from": "finance@company.com", "subject": "Reimbursement processed", "body": "Your travel reimbursement has been processed and will reflect in 3-5 business days."},
+  {"id": 8, "from": "teammate@company.com", "subject": "Waiting on your input", "body": "I've sent the design doc for review, let me know your thoughts whenever possible."},
+  {"id": 9, "from": "security@company.com", "subject": "Password expiring soon", "body": "Your corporate password will expire in 5 days. Please update it to avoid access issues."},
+  {"id": 10, "from": "mentor@company.com", "subject": "Great work this week", "body": "Just wanted to say you're doing well, keep it up. No action needed from your end."}
+]
