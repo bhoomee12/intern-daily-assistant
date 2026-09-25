@@ -185,6 +185,48 @@ Give a short, helpful natural-language response to the user based on this real r
     conversation_history.append(types.Content(role="model", parts=[types.Part(text=answer)]))
     print(answer)
 
+def run_agent_ui(user_message):
+    """Same logic as run_agent, but returns (answer, tool_used) instead of printing."""
+    conversation_history.append(types.Content(role="user", parts=[types.Part(text=user_message)]))
+
+    response = client.models.generate_content(
+        model="gemini-3.5-flash-lite",
+        contents=conversation_history,
+        config=config
+    )
+
+    part = response.candidates[0].content.parts[0]
+    tool_used = None
+
+    if part.function_call:
+        tool_name = part.function_call.name
+        tool_used = tool_name
+        args = dict(part.function_call.args) if part.function_call.args else {}
+
+        if tool_name == "triage_inbox":
+            tool_result = triage_inbox()
+        elif tool_name == "check_stale_tasks":
+            tool_result = check_stale_tasks()
+        elif tool_name == "check_mentor_meeting":
+            tool_result = check_mentor_meeting()
+        elif tool_name == "eod_wrapup":
+            tool_result = eod_wrapup(args.get("notes", ""))
+        elif tool_name == "book_mentor_meeting":
+            tool_result = book_mentor_meeting(args.get("slot", ""))
+
+        follow_up_prompt = f"""Tool result: {json.dumps(tool_result)}
+Give a short, helpful natural-language response to the user based on this real result. Do not claim anything happened that isn't reflected in the tool result above."""
+
+        follow_up = client.models.generate_content(
+            model="gemini-3.5-flash-lite",
+            contents=follow_up_prompt
+        )
+        answer = follow_up.text
+    else:
+        answer = part.text
+
+    conversation_history.append(types.Content(role="model", parts=[types.Part(text=answer)]))
+    return answer, tool_used
 
 # --- Try it ---
 if __name__ == "__main__":
